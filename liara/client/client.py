@@ -1,6 +1,8 @@
-import requests
 from typing import Optional
 
+from os.path import exists
+import requests
+import json
 
 from liara import errors
 
@@ -14,10 +16,32 @@ class Client:
             timeout: Optional[int] = 20,
             version: Optional[int] = 1
     ):
+        self.name = name
         self.token = token
         self.version = version
         self.timeout = timeout
         self.session = requests.session()
+
+        if not exists(f'{name}.json'):
+            self.email = input('Enter Your Email : ')
+            self.password = input('Enter Your Password : ')
+
+            params: dict = {
+                'email': self.email,
+                'password': self.password
+            }
+            result = self.execute(service='login', method='post', data=params).json()
+            self.token = result.get('api_token')
+
+            with open(f'{self.name}.json', 'w') as session_file:
+                json_rows = {
+                    'api_token': self.token
+                }
+                session_file.write(json.dumps(json_rows))
+        else:
+            with open(f'{self.name}.json', 'r') as session_file:
+                result = eval(session_file.read())
+                self.token = result.get('api_token')
 
     @property
     def base_url(self) -> str:
@@ -44,8 +68,34 @@ class Client:
 
         return result
 
-    def get_services(self):
+    def get_projects(self):
+        '''
+        Get details of all projects
+        '''
         return self.execute(service='projects', method='get')
 
     def get_my_account(self):
+        '''
+        Get account information
+        '''
         return self.execute(service='me', method='get')
+
+    def off_service(self, service_name: str):
+        '''
+        Turn off a app
+        '''
+        params: dict = {
+            'scale': '0'
+        }
+        return self.execute(service=f'projects/{service_name}/actions/scale', data=params)
+
+    def on_service(self, service_name: str):
+        '''
+        Turn on a app
+        '''
+        params: dict = {
+            'scale': '1'
+        }
+        return self.execute(service=f'projects/{service_name}/actions/scale', data=params)
+
+    
