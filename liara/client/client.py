@@ -22,26 +22,33 @@ class Client:
         self.timeout = timeout
         self.session = requests.session()
 
-        if not exists(f'{name}.json'):
-            self.email = input('Enter Your Email : ')
-            self.password = input('Enter Your Password : ')
+        if not token:
+            if not exists(f'{name}.session'):
+                self.email = input('Enter Your Email: ')
+                self.password = input('Enter Your Password: ')
 
-            params: dict = {
-                'email': self.email,
-                'password': self.password
-            }
-            result = self.execute(service='login', method='post', data=params).json()
-            self.token = result.get('api_token')
+                result = self.execute(
+                    service='login', method='post', data={
+                        'email': self.email, 'password': self.password
+                    }
+                )
+                print(result.json())
+                if result.status_code != requests.codes.ok:
+                    result_json = result.json()
+                    raise Exception(result_json.get('message'))
 
-            with open(f'{name}.json', 'w') as session_file:
-                json_rows = {
-                    'api_token': self.token
-                }
-                session_file.write(json.dumps(json_rows))
-        else:
-            with open(f'{name}.json', 'r') as session_file:
-                result = eval(session_file.read())
+                result = result.json()
                 self.token = result.get('api_token')
+
+                with open(f'{name}.session', 'w') as session_file:
+                    json_rows = {
+                        'api_token': self.token
+                    }
+                    session_file.write(json.dumps(json_rows))
+            else:
+                with open(f'{name}.session', 'r') as session_file:
+                    result = eval(session_file.read())
+                    self.token = result.get('api_token')
 
     @property
     def base_url(self) -> str:
