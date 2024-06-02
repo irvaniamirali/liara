@@ -1,6 +1,13 @@
 # Liara
 Unofficial library for account management and services in [Liara](https://liara.ir) Cloud
 
+
+# Install & Update
+```bash
+pip install -u liara-cloud
+```
+
+
 ### Quik start
 ```python
 form liara import Client
