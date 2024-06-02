@@ -106,20 +106,10 @@ class Client:
         '''
         To restart a app
         '''
-        params: dict = {
-            'name': service_name
-        }
-        return self.execute(
-            service=f'projects/{service_name}/actions/restart', method='post', data=params
-        )
+        return self.execute(service=f'projects/{service_name}/actions/restart', method='post')
 
     def delete_service(self, service_name: str):
         '''
-        To restart a app
+        Delete a app
         '''
-        params: dict = {
-            'name': service_name
-        }
-        return self.execute(
-            service=f'projects/{service_name}/actions/restart', method='delete', data=params
-        )
+        return self.execute(service=f'projects/{service_name}/actions/restart', method='delete')
