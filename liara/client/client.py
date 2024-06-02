@@ -1,10 +1,10 @@
+from liara import errors
+
 from typing import Optional
 
 from os.path import exists
 import requests
 import json
-
-from liara import errors
 
 
 class Client:
@@ -109,7 +109,9 @@ class Client:
         params: dict = {
             'name': service_name
         }
-        return self.execute(service=f'projects/{name}/actions/restart', method='post', data=params)
+        return self.execute(
+            service=f'projects/{service_name}/actions/restart', method='post', data=params
+        )
 
     def delete_service(self, service_name: str):
         '''
@@ -118,4 +120,6 @@ class Client:
         params: dict = {
             'name': service_name
         }
-        return self.execute(service=f'projects/{name}/actions/restart', method='delete', data=params)
+        return self.execute(
+            service=f'projects/{service_name}/actions/restart', method='delete', data=params
+        )
