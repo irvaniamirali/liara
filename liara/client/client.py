@@ -5,6 +5,7 @@ from typing import Optional
 from os.path import exists
 import requests
 import json
+import time
 
 
 class Client:
@@ -16,7 +17,6 @@ class Client:
             timeout: Optional[int] = 20,
             version: Optional[int] = 1
     ):
-        self.name = name
         self.token = token
         self.version = version
         self.timeout = timeout
@@ -33,13 +33,13 @@ class Client:
             result = self.execute(service='login', method='post', data=params).json()
             self.token = result.get('api_token')
 
-            with open(f'{self.name}.json', 'w') as session_file:
+            with open(f'{name}.json', 'w') as session_file:
                 json_rows = {
                     'api_token': self.token
                 }
                 session_file.write(json.dumps(json_rows))
         else:
-            with open(f'{self.name}.json', 'r') as session_file:
+            with open(f'{name}.json', 'r') as session_file:
                 result = eval(session_file.read())
                 self.token = result.get('api_token')
 
@@ -113,3 +113,22 @@ class Client:
         Delete a app
         '''
         return self.execute(service=f'projects/{service_name}/actions/restart', method='delete')
+
+    def get_process(self, service_name: str):
+        '''
+        Get summary reports of app
+        '''
+        return self.execute(service=f'projects/{service_name}/metrics/summary', method='get')
+
+    def get_logs(self, service_name : str, second_update: Optional[int] = None):
+        '''
+        Get logs of app
+        '''
+        params: dict = {
+            'since': 1
+        }
+        if second_update != None:
+            time.sleep(second_update)
+            return self.execute(service=f'projects/{service_name}/logs', method='get', data=params)
+        else:
+            return self.execute(service=f'projects/{service_name}/logs', method='get', data=params)
