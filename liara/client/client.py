@@ -87,7 +87,9 @@ class Client:
         params: dict = {
             'scale': '0'
         }
-        return self.execute(service=f'projects/{service_name}/actions/scale', data=params)
+        return self.execute(
+            service=f'projects/{service_name}/actions/scale', method='post', data=params
+        )
 
     def on_service(self, service_name: str):
         '''
@@ -96,6 +98,24 @@ class Client:
         params: dict = {
             'scale': '1'
         }
-        return self.execute(service=f'projects/{service_name}/actions/scale', data=params)
+        return self.execute(
+            service=f'projects/{service_name}/actions/scale', method='post', data=params
+        )
 
-    
+    def restart_service(self, service_name: str):
+        '''
+        To restart a app
+        '''
+        params: dict = {
+            'name': service_name
+        }
+        return self.execute(service=f'projects/{name}/actions/restart', method='post', data=params)
+
+    def delete_service(self, service_name: str):
+        '''
+        To restart a app
+        '''
+        params: dict = {
+            'name': service_name
+        }
+        return self.execute(service=f'projects/{name}/actions/restart', method='delete', data=params)
