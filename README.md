@@ -10,7 +10,7 @@ pip install -u liara-cloud
 
 ### Quik start
 ```python
-form liara import Client
+from liara import Client
 
 client = Client(name='my_account')
 
