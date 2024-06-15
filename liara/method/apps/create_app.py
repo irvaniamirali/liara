@@ -3,9 +3,9 @@ from typing import Optional
 import liara
 
 
-class CreateProject:
+class CreateApp:
 
-    def create_project(
+    def create_app(
             self: "liara.Client",
             name: str,
             plan_id: str,
