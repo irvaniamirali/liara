@@ -5,7 +5,7 @@ import liara
 
 class CreateProject:
 
-    def create_projects(
+    def create_project(
             self: "liara.Client",
             name: str,
             plan_id: str,
