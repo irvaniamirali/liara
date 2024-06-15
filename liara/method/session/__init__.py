@@ -1,5 +1,5 @@
-from .login import Login
+from .session import Session
 
 
-class Auth(Login):
+class StringSession(Session):
     pass
