@@ -1,9 +1,9 @@
 import liara
 
 
-class DeleteProject:
+class DeleteApp:
 
-    def delete_project(self: "liara.Client", name: str):
+    def delete_app(self: "liara.Client", name: str):
         """
         Delete a app
         """
