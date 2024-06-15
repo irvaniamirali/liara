@@ -1,8 +1,8 @@
-from .create_project import CreateProject
+from .create_app import CreateApp
 from .get_projects import GetProjects
 from .get_project import GetProject
-from .delete_project import DeleteProject
+from .delete_app import DeleteApp
 
 
-class Projects(CreateProject, GetProjects, GetProject, DeleteProject):
+class Apps(CreateApp, GetProjects, GetProject, DeleteApp):
     pass
