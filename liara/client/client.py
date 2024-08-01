@@ -1,7 +1,7 @@
 from typing import Optional
 from os.path import exists
 
-from liara.api import API
+from liara.http import API
 from liara.method import Methods
 
 
