@@ -3,7 +3,7 @@ from os.path import exists
 import json
 
 from liara.http import API
-from liara.method import Methods
+from liara.methods import Methods
 
 
 class Client(Methods):
