@@ -7,4 +7,4 @@ class DeleteApp:
         """
         Delete a app
         """
-        return self.api.execute(service="projects/" + name, method="delete")
+        return self.api.execute(service="projects/" + name, method="DELETE")

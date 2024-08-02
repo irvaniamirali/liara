@@ -8,4 +8,5 @@ class GetProject:
         Get details of a project
         :return:
         """
-        return self.api.execute(service="projects/" + name, method="get")
+        path = "projects/" + name
+        return self.api.execute(service=path, method="GET")
