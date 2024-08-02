@@ -7,4 +7,4 @@ class GetProjects:
         """
         Get all details of all projects that user owns
         """
-        return self.api.execute(service="projects", method="get")
+        return self.api.execute(service="projects", method="GET")
