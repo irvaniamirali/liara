@@ -4,16 +4,16 @@ from setuptools import setup, find_packages
 setup(
     name='liara-cloud',
     version='1.0.0',
-    author='AmirAli Irvany',
-    author_email='irvanyamirali@gmail.com',
+    author='AmirAli Irvani',
+    author_email='irvaniamirali@proton.me',
     description=(
         'Unofficial library for account management and services in Liara Cloud'
     ),
-    keywords=['liara', 'liara-cloud', 'session'],
+    keywords=['liara', 'liara-cloud'],
     long_description=open('README.md', encoding='UTF-8').read(),
     python_requires="~=3.7",
     long_description_content_type='text/markdown',
-    url='https://github.com/irvanyamirali/liara',
+    url='https://github.com/irvaniamirali/liara',
     packages=find_packages(),
     exclude_package_data={
         '': ['*.pyc', '*__pycache__*']
