@@ -22,4 +22,4 @@ class CreateApp:
             "platform": platform,
             "network": network
         }
-        return self.api.execute(service="projects", method="post", data=params)
+        return self.api.execute(service="projects", method="POST", data=params)

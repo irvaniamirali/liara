@@ -1,5 +1,7 @@
-from typing import Optional
+from liara.errors import APIError
+from liara.types import Results
 
+from typing import Optional
 import requests
 
 
@@ -22,7 +24,13 @@ class API:
             )
         }
 
-    def execute(self, service: str, method: str, data: Optional[dict] = None) -> requests.Response:
-        self.session = requests.session()
-        result = self.session.request(method=method, url=self.BASE_URL + service, headers=self.headers, data=data)
-        return result
+    def execute(self, service: str, method: str, data: Optional[dict] = None):
+        """
+        Execute HTTP request to Liara API
+        """
+        path = self.BASE_URL + service
+        with requests.request(method=method, url=path, headers=self.headers, data=data) as response:
+            response_data = response.json()
+            if response.status_code == requests.codes.ok:
+                return Results(response_data)
+            raise APIError(response_data, response.status_code)
