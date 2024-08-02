@@ -1,1 +1,1 @@
-from .errors import Unauthorized
+from .errors import APIError
